@@ -1,53 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="20dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_img"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:cardBackgroundColor="@color/teal_700"
-        app:cardCornerRadius="10dp">
+    <data>
+        <import type="id.finale.countrivia.data.entities.CountryModel"/>
+        <variable
+            name="countryModel"
+            type="id.finale.countrivia.data.entities.CountryModel" />
+    </data>
 
-        <ImageView
-            android:id="@+id/flagImage"
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:layout_marginTop="4dp"
+        app:cardElevation="4dp">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/ic_launcher_background" />
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="8dp">
 
-    </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/flagImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@{countryModel.flags.alt}"
+                android:transitionName="flag_transition"
+                android:padding="4dp"
+                android:src="@color/black"
+                app:load="@{countryModel.flags.png}"/>
 
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/cv_img"
-        android:text="Name"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_toEndOf="@id/flagImage"
+                android:text="@{countryModel.name.common}"
+                tools:text="Nama Negara" />
 
-    <TextView
-        android:id="@+id/tvCapital"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvName"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@id/cv_img"
-        android:text="Species :"
-        android:textSize="18sp" />
+            <TextView
+                android:id="@+id/tvCapital"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_below="@+id/tvName"
+                android:layout_toEndOf="@id/flagImage"
+                android:text="@{countryModel.capital[0]}"
+                tools:text="Nama Ibukota" />
+        </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tvPopulation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvCapital"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@id/cv_img"
-        android:text="Alive"
-        android:textSize="18sp" />
-</RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/cv_img"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        app:cardCornerRadius="10dp">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/flagImage"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@drawable/ic_launcher_background" />-->
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvName"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_toEndOf="@id/cv_img"-->
+<!--        android:text="Country Name: "-->
+<!--        android:textSize="25sp"-->
+<!--        android:textStyle="bold" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvCapital"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/tvName"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_toEndOf="@id/cv_img"-->
+<!--        android:text="Capital: "-->
+<!--        android:textSize="18sp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvPopulation"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/tvCapital"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_toEndOf="@id/cv_img"-->
+<!--        android:text="Population: "-->
+<!--        android:textSize="18sp" />-->
