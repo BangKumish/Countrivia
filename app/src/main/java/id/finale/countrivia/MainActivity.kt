@@ -2,6 +2,7 @@ package id.finale.countrivia
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.Window
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -23,6 +24,9 @@ class MainActivity : AppCompatActivity() {
     private val homeViewModel by viewModels<HomeViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        supportActionBar!!.hide()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -52,13 +56,6 @@ class MainActivity : AppCompatActivity() {
         }
         navController.addOnDestinationChangedListener(listener)
     }
-
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        super.onCreateOptionsMenu(menu)
-
-//
-//        return true
-//    }
 
     private fun setSearchBar(binding: ActivityMainBinding){
         val menuItem: MenuItem = binding.toolbar.menu.findItem(R.id.actionSearch)

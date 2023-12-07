@@ -28,15 +28,11 @@ class DataStoreManager @Inject constructor(
 
     suspend fun saveCountriesJSONString(countriesJSON: String) {
         context.dataStore.edit {
-
             it[COUNTRY_KEY] = countriesJSON
-
-
         }
     }
 
     suspend fun getCountriesJSONString(): String {
-
         return context.dataStore.data.first()[COUNTRY_KEY] ?: ""
     }
 
@@ -44,12 +40,10 @@ class DataStoreManager @Inject constructor(
     suspend fun saveLastFetchTime(lastFetchTime: Int) {
         context.dataStore.edit {
             it[KEY_LAST_FETCH_TIME] = lastFetchTime.toString()
-
         }
     }
 
     fun getLastFetchTime() = context.dataStore.data.map {
         it[KEY_LAST_FETCH_TIME]?.toInt() ?: 0
-
     }
 }

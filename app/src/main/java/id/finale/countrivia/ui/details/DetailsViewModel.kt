@@ -24,9 +24,10 @@ class DetailsViewModel @Inject constructor() : ViewModel() {
         stringBuilder.append("Total population of this country is ")
         stringBuilder.append(countryInfo.population?.prettyCount())
         stringBuilder.append(". ")
-        stringBuilder.append(countryInfo.name?.official)
-        if (countryInfo.unMember!!)
+        stringBuilder.append(countryInfo.name?.common)
+        if (countryInfo.unMember == true) {
             stringBuilder.append(" is a UN member country. ")
+        }
         else
             stringBuilder.append(" is unfortunately not a UN member country yet. ")
 

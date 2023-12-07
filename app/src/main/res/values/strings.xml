@@ -9,4 +9,5 @@
     <string name="no_data_found">No data found..!!</string>
     <string name="please_check_your_internet">Please check your internet connection</string>
     <string name="coaAlt">Coat of Arms of + @{viewmodel.countryModel.name.official}</string>
+    <string name="profile">Profile</string>
 </resources>

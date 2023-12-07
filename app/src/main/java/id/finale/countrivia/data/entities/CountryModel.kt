@@ -41,7 +41,7 @@ class CountryModel(): Parcelable, Comparable<CountryModel>{
     var subregion: String? = null
     var flags: Flags? = null
     var population: Long? = null
-    var coatOfArms:CoatOfArms?  = null
+    var coatOfArms: CoatOfArms?  = null
 
     override fun compareTo(other: CountryModel): Int {
         return name?.common?.let {
