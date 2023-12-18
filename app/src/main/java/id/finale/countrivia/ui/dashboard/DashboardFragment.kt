@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
-import id.finale.countrivia.activity.LoginActivity
-import id.finale.countrivia.data.user.UserDao
+import id.finale.countrivia.ui.activity.LoginActivity
+import id.finale.countrivia.di.data.user.UserDao
 import id.finale.countrivia.databinding.FragmentDashboardBinding
-import id.finale.countrivia.extensions.obtainViewModel
+import id.finale.countrivia.di.extensions.obtainViewModel
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {

@@ -3,8 +3,8 @@ package id.finale.countrivia.ui.dashboard
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.finale.countrivia.data.user.UserDao
-import id.finale.countrivia.data.user.UserDatabase
+import id.finale.countrivia.di.data.user.UserDao
+import id.finale.countrivia.di.data.user.UserDatabase
 import javax.inject.Inject
 
 @HiltViewModel
@@ -13,7 +13,7 @@ class DashboardViewModel @Inject constructor(application: Application) : Android
     private val userDao = UserDatabase.getDatabase(application).userDao()
     val user = userDao.getActiveUser()
 
-    fun getUserDao(): UserDao{
+    fun getUserDao(): UserDao {
         return userDao
     }
 }

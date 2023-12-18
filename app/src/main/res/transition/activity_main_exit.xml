@@ -10,11 +10,11 @@
             <target android:targetId="@id/container" />
         </targets>
         <transition
-            class="id.finale.countrivia.onBoarding.onBoardingHelper.core.PopTransition"
+            class="id.finale.countrivia.ui.activity.onBoarding.onBoardingHelper.core.PopTransition"
             app:startScale="1.0"
             app:endScale="0.95"/>
         <transition
-            class="id.finale.countrivia.onBoarding.onBoardingHelper.core.FadeTransition"
+            class="id.finale.countrivia.ui.activity.onBoarding.onBoardingHelper.core.FadeTransition"
             app:startAlpha="1.0"
             app:endAlpha="0.3"/>
     </transitionSet>

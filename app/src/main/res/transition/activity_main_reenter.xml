@@ -11,11 +11,11 @@
                 />
         </targets>
         <transition
-            class="id.finale.countrivia.onBoarding.onBoardingHelper.core.PopTransition"
+            class="id.finale.countrivia.ui.activity.onBoarding.onBoardingHelper.core.PopTransition"
             app:startScale="0.95"
             app:endScale="1.0"/>
         <transition
-            class="id.finale.countrivia.onBoarding.onBoardingHelper.core.FadeTransition"
+            class="id.finale.countrivia.ui.activity.onBoarding.onBoardingHelper.core.FadeTransition"
             app:startAlpha="0.3"
             app:endAlpha="1.0"/>
     </transitionSet>

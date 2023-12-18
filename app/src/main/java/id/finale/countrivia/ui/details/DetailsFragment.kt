@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import id.finale.countrivia.databinding.FragmentDetailsBinding
-import id.finale.countrivia.extensions.obtainViewModel
+import id.finale.countrivia.di.extensions.obtainViewModel
 
 
 @AndroidEntryPoint

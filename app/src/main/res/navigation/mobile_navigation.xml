@@ -25,6 +25,6 @@
         tools:layout="@layout/fragment_details" >
         <argument
             android:name="countryModel"
-            app:argType="id.finale.countrivia.data.entities.CountryModel"/>
+            app:argType="id.finale.countrivia.di.data.entities.CountryModel"/>
     </fragment>
 </navigation>
