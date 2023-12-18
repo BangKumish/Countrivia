@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.viewpager2.widget.ViewPager2
 import id.finale.countrivia.activity.LoginActivity
+import id.finale.countrivia.data.local.pref.DataStoreManager
 import id.finale.countrivia.databinding.OnboardingViewBinding
 import id.finale.countrivia.onBoarding.OnBoardingPagerAdapter
 import id.finale.countrivia.onBoarding.entity.OnBoardingPage
 import id.finale.countrivia.onBoarding.onBoardingHelper.core.setParallaxTransformation
-import id.finale.countrivia.onBoarding.onBoardingHelper.domain.OnBoardingPrefManager
 
 class OnBoardingView @JvmOverloads
 constructor(
@@ -21,7 +21,7 @@ constructor(
     defStyleRes: Int = 0
 ): FrameLayout (context, attrs, defStyleAttr, defStyleRes){
     private val numberOfPages by lazy { OnBoardingPage.values().size }
-    private val prefManager: OnBoardingPrefManager
+    private val prefManager: DataStoreManager
 
 
     init {
@@ -29,7 +29,7 @@ constructor(
         with(binding) {
             setUpSlider()
             addingButtonsClickListeners()
-            prefManager = OnBoardingPrefManager(root.context)
+            prefManager = DataStoreManager(root.context)
         }
 
     }
@@ -41,8 +41,6 @@ constructor(
             setPageTransformer { page, position ->
                 setParallaxTransformation(page, position)
             }
-//
-//            setPageTransformer(pageCompositePageTransformer)
 
             addSlideChangeListener()
 

@@ -29,7 +29,7 @@
 
         <activity
             android:exported="true"
-            android:name=".onBoarding.OnBoarding"
+            android:name=".activity.OnBoarding"
             android:theme="@style/AppTheme.OnBoarding">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

@@ -7,21 +7,21 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import id.finale.countrivia.MainActivity
-import id.finale.countrivia.MainApplication
 import id.finale.countrivia.data.user.User
 import id.finale.countrivia.data.user.UserDao
+import id.finale.countrivia.data.user.UserDatabase
 import id.finale.countrivia.databinding.ActivityRegisterBinding
 
 @AndroidEntryPoint
 class RegisterActivity : AppCompatActivity(){
     private lateinit var userDao: UserDao
     private lateinit var binding: ActivityRegisterBinding
+    private lateinit var userDatabase: UserDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
+        userDatabase = UserDatabase.getDatabase(this)
+        userDao = userDatabase.userDao()
         binding = ActivityRegisterBinding.inflate(layoutInflater)
-        userDao = (application as MainApplication).database.userDao()
-
 
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -89,7 +89,8 @@ class RegisterActivity : AppCompatActivity(){
                 email = email,
                 userName = username,
                 nim = nim,
-                password = password
+                password = password,
+                isActive = true
             )
             userDao.addUser(newUser)
             Toast.makeText(this, "Registrasi Sukses!", Toast.LENGTH_LONG).show()

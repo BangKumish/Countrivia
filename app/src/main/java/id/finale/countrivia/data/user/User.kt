@@ -10,5 +10,6 @@ data class User(
     val email: String,
     val userName: String,
     val nim: String,
-    val password: String
+    val password: String,
+    var isActive: Boolean = false
 )

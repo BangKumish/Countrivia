@@ -7,4 +7,4 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@color/colorWhite"
-    tools:context=".onBoarding.OnBoarding"/>
+    tools:context=".activity.OnBoarding"/>

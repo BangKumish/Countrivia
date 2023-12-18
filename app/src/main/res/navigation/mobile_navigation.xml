@@ -18,6 +18,7 @@
         android:id="@+id/navigation_dashboard"
         android:name="id.finale.countrivia.ui.dashboard.DashboardFragment"
         tools:layout="@layout/fragment_dashboard" />
+
     <fragment
         android:id="@+id/detailsFragment"
         android:name="id.finale.countrivia.ui.details.DetailsFragment"
@@ -25,8 +26,5 @@
         <argument
             android:name="countryModel"
             app:argType="id.finale.countrivia.data.entities.CountryModel"/>
-        <action
-            android:id="@+id/action_detailsFragment_to_navigation_home"
-            app:destination="@id/navigation_home" />
     </fragment>
 </navigation>

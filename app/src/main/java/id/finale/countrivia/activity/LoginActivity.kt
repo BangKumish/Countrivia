@@ -7,8 +7,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import id.finale.countrivia.MainActivity
-import id.finale.countrivia.MainApplication
 import id.finale.countrivia.data.user.UserDao
+import id.finale.countrivia.data.user.UserDatabase
 import id.finale.countrivia.databinding.ActivityLoginBinding
 
 @AndroidEntryPoint
@@ -16,11 +16,13 @@ class LoginActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var userDao: UserDao
+    private lateinit var userDatabase: UserDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        userDatabase = UserDatabase.getDatabase(this)
+        userDao = userDatabase.userDao()
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        userDao = (application as MainApplication).database.userDao()
 
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -52,7 +54,6 @@ class LoginActivity: AppCompatActivity() {
 
             loginUser(email, password)
         }
-
     }
 
     private fun loginUser(email: String, password: String){
@@ -60,7 +61,9 @@ class LoginActivity: AppCompatActivity() {
         if(user == null){
             Toast.makeText(this, "Email atau Password Salah!", Toast.LENGTH_LONG).show()
         } else{
+            user.isActive = true
             Toast.makeText(this, "Login Berhasil!", Toast.LENGTH_LONG).show()
+            userDao.loginUser(email)
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

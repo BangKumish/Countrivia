@@ -32,7 +32,7 @@ class CountryRepo @Inject constructor(
                 response.let {
                     val now = System.currentTimeMillis() / 1000L
                     dataStoreManager.saveLastFetchTime(now.toInt())
-                    (it.value as ArrayList<CountryModel>)
+                    (it.value as ArrayList<CountryModel>).sorted()
                     val dataString: String = Gson().toJson(Countries(it.value))
                     dataStoreManager.saveCountriesJSONString(dataString)
                 }

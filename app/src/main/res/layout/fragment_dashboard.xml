@@ -9,6 +9,7 @@
 
     <!-- Konten Profil -->
 
+
     <!-- Username -->
 
     <ImageView
@@ -45,7 +46,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
         android:gravity="start"
-        android:text="data username"
+        android:text="Profile Username"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +100,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
         android:gravity="start"
-        android:text="data name"
+        android:text="Profile Name"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -153,7 +154,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
         android:gravity="start"
-        android:text="data email"
+        android:text="Profile Email"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -207,7 +208,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
         android:gravity="start"
-        android:text="data nim"
+        android:text="Profile NIM"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
