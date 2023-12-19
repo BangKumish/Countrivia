@@ -1,9 +1,9 @@
-    # Countrivia
+# Countrivia
 
-![appLogo](app/src/main/res/drawable/countrivia.png)
+<img src="app/src/main/res/drawable/countrivia.png" alt="appLogo" width="200"/>
 
 ## About App
-"Countrivia is an application that provides comprehensive information about various countries around the world, allowing users to explore and mark their favorite countries in a 'Wishlist' for their dream travels."	
+"Countrivia is an application that provides comprehensive information about various countries around the world, allowing users to explore and mark their favorite countries in a 'Wishlist' for their dream travels."
 
 ## Our Team
 1. Andreas Sihotang - 121140168
@@ -22,12 +22,12 @@
 8. Dagger-Hilt Implementation
 
 ## Snapshots
-1. ![Login](snapshot/login-pam.jpeg)
-2. ![Register](snapshot/register-pam.jpeg)
-3. ![Detail](snapshot/detail-pam.jpeg)
-4. ![Home](snapshot/home-pam.jpeg)
-5. ![Onboarding](snapshot/onboarding-pam.jpeg)
-6. ![Profile](snapshot/profile-pam.jpeg)
+1. <img src="snapshot/login-pam.jpeg" alt="Login" width="200"/>
+2. <img src="snapshot/register-pam.jpeg" alt="Register" width="200"/>
+3. <img src="snapshot/detail-pam.jpeg" alt="Detail" width="200"/>
+4. <img src="snapshot/home-pam.jpeg" alt="Home" width="200"/>
+5. <img src="snapshot/onboarding-pam.jpeg" alt="Onboarding" width="200"/>
+6. <img src="snapshot/profile-pam.jpeg" alt="Profile" width="200"/>
 
 ## Dependencies Used
 - Preference DataStore
