@@ -1,6 +1,6 @@
 # Countrivia
 
-![appLogo](app/src/main/res/drawable/logo.png)
+![appLogo](app/src/main/res/drawable/countrivia.png)
 
 ## About App
 "Countrivia is an application that provides comprehensive information about various countries around the world, allowing users to explore and mark their favorite countries in a 'Wishlist' for their dream travels."	
