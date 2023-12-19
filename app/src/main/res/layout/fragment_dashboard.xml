@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/main_gradient"
     android:padding="30dp"
     tools:context=".ui.activity.RegisterActivity">
 
@@ -22,7 +22,7 @@
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            app:srcCompat="@drawable/logo" />
+            app:srcCompat="@drawable/countrivia" />
 
         <TextView
             android:id="@+id/usernameText"

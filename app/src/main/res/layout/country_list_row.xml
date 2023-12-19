@@ -16,13 +16,15 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:layout_marginTop="4dp"
+        app:cardBackgroundColor="@color/white"
         app:cardElevation="4dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:padding="8dp">
+            android:padding="8dp"
+            android:background="@color/colorWhite">
 
             <ImageView
                 android:id="@+id/flagImage"
@@ -31,7 +33,7 @@
                 android:contentDescription="@{countryModel.flags.alt}"
                 android:transitionName="flag_transition"
                 android:padding="4dp"
-                android:src="@color/black"
+                android:src="@drawable/countrivia"
                 app:load="@{countryModel.flags.png}"/>
 
             <TextView

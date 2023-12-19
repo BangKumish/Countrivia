@@ -58,6 +58,11 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener(listener)
     }
 
+    override fun onDestroy() {
+        navController.removeOnDestinationChangedListener(listener)
+        super.onDestroy()
+    }
+
     private fun setSearchBar(binding: ActivityMainBinding){
         val menuItem: MenuItem = binding.toolbar.menu.findItem(R.id.actionSearch)
         val searchView: SearchView = menuItem.actionView as SearchView
