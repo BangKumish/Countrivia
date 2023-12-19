@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
-import id.finale.countrivia.ui.activity.LoginActivity
-import id.finale.countrivia.di.data.user.UserDao
 import id.finale.countrivia.databinding.FragmentDashboardBinding
+import id.finale.countrivia.di.data.user.UserDao
 import id.finale.countrivia.di.extensions.obtainViewModel
+import id.finale.countrivia.ui.activity.EditProfile
+import id.finale.countrivia.ui.activity.LoginActivity
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
@@ -38,8 +38,6 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this)[DashboardViewModel::class.java]
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
@@ -52,19 +50,29 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val user = userDao.getActiveUser()
 
-        binding.usernameText.text = dashboardViewModel.user.userName
-        binding.emailText.text = dashboardViewModel.user.email
+        binding.usernameText.text = user.userName
+        binding.userEmail.text = user.email
+        binding.userNIM.text = user.nim
 
         binding.btnLogout.setOnClickListener {
-                btnLogout()
+            btnLogout()
         }
+         binding.updateButton.setOnClickListener {
+             btnUpdate()
+         }
     }
 
-    private fun btnLogout(){
+    private fun btnLogout() {
         userDao.deActiveUser()
         val intent = Intent(context, LoginActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
+        startActivity(intent)
+        activity?.finish()
+    }
+
+    private fun btnUpdate(){
+        val intent = Intent(context, EditProfile::class.java)
+        startActivity(intent)
     }
 }

@@ -38,4 +38,7 @@ interface UserDao{
 
     @Query("UPDATE userTable SET isActive = 0")
     fun deActiveUser()
+
+    @Query("UPDATE userTable SET email =:email, userName =:username, nim=:nim, password=:password ")
+    fun updateUser(email: String, username: String, nim: String, password: String)
 }

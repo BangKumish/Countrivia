@@ -6,11 +6,11 @@ import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
-import id.finale.countrivia.ui.MainActivity
+import id.finale.countrivia.databinding.ActivityRegisterBinding
 import id.finale.countrivia.di.data.user.User
 import id.finale.countrivia.di.data.user.UserDao
 import id.finale.countrivia.di.data.user.UserDatabase
-import id.finale.countrivia.databinding.ActivityRegisterBinding
+import id.finale.countrivia.ui.MainActivity
 
 @AndroidEntryPoint
 class RegisterActivity : AppCompatActivity(){
@@ -90,7 +90,7 @@ class RegisterActivity : AppCompatActivity(){
                 userName = username,
                 nim = nim,
                 password = password,
-                isActive = true
+                isActive = 1
             )
             userDao.addUser(newUser)
             Toast.makeText(this, "Registrasi Sukses!", Toast.LENGTH_LONG).show()

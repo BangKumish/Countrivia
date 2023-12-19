@@ -12,6 +12,6 @@ data class User(
     val userName: String,
     val nim: String,
     val password: String,
-    var isActive: Boolean = false,
+    var isActive: Int,
 //    val profilePhoto: Bitmap? = null
 )

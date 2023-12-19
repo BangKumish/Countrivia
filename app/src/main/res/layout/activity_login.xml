@@ -19,17 +19,17 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="match_parent"
-            android:layout_height="228dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            app:srcCompat="@drawable/countrivia" />
+            android:layout_gravity="center"
+            android:src="@drawable/countrivia" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="66dp"
             android:layout_gravity="center"
-            android:backgroundTint="@color/black"
             android:text="Log In"
             android:textAlignment="center"
             android:textColor="@color/primary"
@@ -41,16 +41,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:textColor="@color/black"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/edt_password_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:textColor="@color/black"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/btn_login"
@@ -60,6 +60,15 @@
             android:backgroundTint="@color/primary"
             android:text="Login"
             app:cornerRadius="20dp" />
+
+        <TextView
+            android:id="@+id/loginGuest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login as Guest"
+            android:textAlignment="center"
+            android:textColor="@color/darkerBlue"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/login_to_regis"

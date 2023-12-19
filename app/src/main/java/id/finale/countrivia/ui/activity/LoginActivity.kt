@@ -6,10 +6,10 @@ import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
-import id.finale.countrivia.ui.MainActivity
+import id.finale.countrivia.databinding.ActivityLoginBinding
 import id.finale.countrivia.di.data.user.UserDao
 import id.finale.countrivia.di.data.user.UserDatabase
-import id.finale.countrivia.databinding.ActivityLoginBinding
+import id.finale.countrivia.ui.MainActivity
 
 @AndroidEntryPoint
 class LoginActivity: AppCompatActivity() {
@@ -54,6 +54,10 @@ class LoginActivity: AppCompatActivity() {
 
             loginUser(email, password)
         }
+
+        binding.loginGuest.setOnClickListener {
+            loginAsGuest()
+        }
     }
 
     private fun loginUser(email: String, password: String){
@@ -61,11 +65,18 @@ class LoginActivity: AppCompatActivity() {
         if(user == null){
             Toast.makeText(this, "Email atau Password Salah!", Toast.LENGTH_LONG).show()
         } else{
-            user.isActive = true
+            user.isActive = 1
             Toast.makeText(this, "Login Berhasil!", Toast.LENGTH_LONG).show()
             userDao.loginUser(email)
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun loginAsGuest(){
+        Toast.makeText(this, "Coming Soon!", Toast.LENGTH_LONG).show()
+//        userDao.deActiveUser()
+//        val intent = Intent(this, MainActivity::class.java)
+//        startActivity(intent)
     }
 }

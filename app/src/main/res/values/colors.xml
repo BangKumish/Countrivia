@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="purple_200">#BB86FC</color>
+    <color name="purple_500">#6200EE</color>
+    <color name="purple_700">#3700B3</color>
+    <color name="teal_200">#03DAC5</color>
+    <color name="teal_700">#018786</color>
+    <color name="black">#1B262C</color>
     <color name="red">#C51F1A</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#F8F7F4</color>
     <color name="primary">#435585</color>
-    <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorPrimary">#F8F7F4</color>
+    <color name="colorPrimaryDark">#1B262C</color>
     <color name="colorAccent">#4CAF50</color>
     <color name="colorPurple">#6c63ff</color>
     <color name="colorIndigo">#303F9F</color>
     <color name="colorBlueMidnight">#003366</color>
-    <color name="colorGrey">#C9C9C9</color>
-    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorGrey">#425262</color>
+    <color name="colorWhite">#F8F7F4</color>
+    <color name="darkerBlue">#0F4C75</color>
+    <color name="darkBlue">#3282B8</color>
 </resources>

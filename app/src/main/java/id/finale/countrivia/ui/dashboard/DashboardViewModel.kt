@@ -11,7 +11,7 @@ import javax.inject.Inject
 class DashboardViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
 
     private val userDao = UserDatabase.getDatabase(application).userDao()
-    val user = userDao.getActiveUser()
+
 
     fun getUserDao(): UserDao {
         return userDao

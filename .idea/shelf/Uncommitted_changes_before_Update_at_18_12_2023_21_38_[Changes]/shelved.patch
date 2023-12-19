@@ -1,0 +1,368 @@
+Index: app/src/main/java/id/finale/countrivia/ui/dashboard/DashboardViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package id.finale.countrivia.ui.dashboard\r\n\r\nimport androidx.lifecycle.ViewModel\r\nimport dagger.hilt.android.lifecycle.HiltViewModel\r\n\r\nclass DashboardViewModel : ViewModel() {\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/id/finale/countrivia/ui/dashboard/DashboardViewModel.kt b/app/src/main/java/id/finale/countrivia/ui/dashboard/DashboardViewModel.kt
+--- a/app/src/main/java/id/finale/countrivia/ui/dashboard/DashboardViewModel.kt	(revision 116e81d79c5e65da39593c1a1ddffc793841b275)
++++ b/app/src/main/java/id/finale/countrivia/ui/dashboard/DashboardViewModel.kt	(date 1702563776120)
+@@ -1,8 +1,16 @@
+ package id.finale.countrivia.ui.dashboard
+ 
++import android.app.Application
+ import androidx.lifecycle.ViewModel
+ import dagger.hilt.android.lifecycle.HiltViewModel
++import id.finale.countrivia.MainApplication
+ 
+-class DashboardViewModel : ViewModel() {
++@HiltViewModel
++class DashboardViewModel(app: Application) : ViewModel() {
++    private val userDao = (app as MainApplication).database.userDao()
++    val user = userDao.getActiveUser()
+ 
++    val profileName = user.userName
++    val profileEmail = user.email
++    val profileNim = user.nim
+ }
+\ No newline at end of file
+Index: app/src/main/java/id/finale/countrivia/data/user/User.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package id.finale.countrivia.data.user\r\n\r\nimport androidx.room.Entity\r\nimport androidx.room.PrimaryKey\r\n\r\n@Entity(tableName = \"userTable\")\r\ndata class User(\r\n    @PrimaryKey(autoGenerate = true)\r\n    val id: Long = 0,\r\n    val email: String,\r\n    val userName: String,\r\n    val nim: String,\r\n    val password: String\r\n)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/id/finale/countrivia/data/user/User.kt b/app/src/main/java/id/finale/countrivia/data/user/User.kt
+--- a/app/src/main/java/id/finale/countrivia/data/user/User.kt	(revision 116e81d79c5e65da39593c1a1ddffc793841b275)
++++ b/app/src/main/java/id/finale/countrivia/data/user/User.kt	(date 1702569188503)
+@@ -2,6 +2,7 @@
+ 
+ import androidx.room.Entity
+ import androidx.room.PrimaryKey
++import id.finale.countrivia.data.entities.CountryModel
+ 
+ @Entity(tableName = "userTable")
+ data class User(
+@@ -10,5 +11,7 @@
+     val email: String,
+     val userName: String,
+     val nim: String,
+-    val password: String
++    val password: String,
++    var isActive: Boolean = false,
++    var favoriteList: List<CountryModel>
+ )
+Index: app/src/main/java/id/finale/countrivia/data/user/UserDao.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package id.finale.countrivia.data.user\r\n\r\nimport androidx.lifecycle.LiveData\r\nimport androidx.room.Dao\r\nimport androidx.room.Insert\r\nimport androidx.room.OnConflictStrategy\r\nimport androidx.room.Query\r\n\r\n@Dao\r\ninterface UserDao{\r\n\r\n    @Insert(onConflict = OnConflictStrategy.REPLACE)\r\n    fun addUser(user: User): Long\r\n\r\n    @Insert(onConflict = OnConflictStrategy.REPLACE)\r\n    fun addAllUser(user: List<User>): List<Long>\r\n\r\n    @Query(\"SELECT * FROM userTable WHERE email LIKE :email AND password LIKE :password\")\r\n    fun readLoginData(email: String, password: String): User\r\n\r\n    @Query(\"SELECT * FROM userTable WHERE id LIKE :id\")\r\n    fun getUserDetail(id: Long): User\r\n\r\n    @Query(\"DELETE FROM userTable\")\r\n    fun deleteAll()\r\n\r\n    @Query(\"SELECT * FROM userTable ORDER BY id ASC\")\r\n    fun getAllUser(): LiveData<List<User>>\r\n\r\n    @Query(\"SELECT * FROM userTable WHERE email LIKE :email\")\r\n    fun getUserByEmail(email: String): User\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/id/finale/countrivia/data/user/UserDao.kt b/app/src/main/java/id/finale/countrivia/data/user/UserDao.kt
+--- a/app/src/main/java/id/finale/countrivia/data/user/UserDao.kt	(revision 116e81d79c5e65da39593c1a1ddffc793841b275)
++++ b/app/src/main/java/id/finale/countrivia/data/user/UserDao.kt	(date 1702903240593)
+@@ -5,6 +5,7 @@
+ import androidx.room.Insert
+ import androidx.room.OnConflictStrategy
+ import androidx.room.Query
++import id.finale.countrivia.data.entities.CountryModel
+ 
+ @Dao
+ interface UserDao{
+@@ -29,4 +30,13 @@
+ 
+     @Query("SELECT * FROM userTable WHERE email LIKE :email")
+     fun getUserByEmail(email: String): User
++
++    @Query("SELECT * FROM userTable WHERE isActive = 1")
++    fun getActiveUser():User
++
++    @Query("UPDATE ")
++    fun deactiveAllUser():User
++
++    @Query("")
++    fun addFavoriteCountry(countryModel: CountryModel)
+ }
+\ No newline at end of file
+Index: app/src/main/java/id/finale/countrivia/MainApplication.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package id.finale.countrivia\r\n\r\nimport android.app.Application\r\nimport androidx.room.Room\r\nimport dagger.hilt.android.HiltAndroidApp\r\nimport id.finale.countrivia.data.user.UserDatabase\r\n\r\n@HiltAndroidApp\r\nclass MainApplication: Application() {\r\n\r\n    lateinit var database: UserDatabase\r\n        private set\r\n\r\n    override fun onCreate() {\r\n        super.onCreate()\r\n\r\n        database = Room.databaseBuilder(\r\n            applicationContext,\r\n            UserDatabase::class.java,\r\n            \"userDatabase\"\r\n        ).allowMainThreadQueries().build()\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/id/finale/countrivia/MainApplication.kt b/app/src/main/java/id/finale/countrivia/MainApplication.kt
+--- a/app/src/main/java/id/finale/countrivia/MainApplication.kt	(revision 116e81d79c5e65da39593c1a1ddffc793841b275)
++++ b/app/src/main/java/id/finale/countrivia/MainApplication.kt	(date 1702560852866)
+@@ -18,6 +18,6 @@
+             applicationContext,
+             UserDatabase::class.java,
+             "userDatabase"
+-        ).allowMainThreadQueries().build()
++        ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/id/finale/countrivia/ui/dashboard/DashboardFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package id.finale.countrivia.ui.dashboard\r\n\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.lifecycle.ViewModelProvider\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport id.finale.countrivia.data.user.UserDao\r\nimport id.finale.countrivia.databinding.FragmentDashboardBinding\r\n\r\n@AndroidEntryPoint\r\nclass DashboardFragment : Fragment() {\r\n\r\n    private var _binding: FragmentDashboardBinding? = null\r\n    lateinit var userDao: UserDao\r\n\r\n    private val binding get() = _binding!!\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater,\r\n        container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View {\r\n        val dashboardViewModel =\r\n            ViewModelProvider(this).get(DashboardViewModel::class.java)\r\n\r\n        _binding = FragmentDashboardBinding.inflate(inflater, container, false)\r\n        val root: View = binding.root\r\n        return root\r\n    }\r\n\r\n    override fun onDestroyView() {\r\n        super.onDestroyView()\r\n        _binding = null\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/id/finale/countrivia/ui/dashboard/DashboardFragment.kt b/app/src/main/java/id/finale/countrivia/ui/dashboard/DashboardFragment.kt
+--- a/app/src/main/java/id/finale/countrivia/ui/dashboard/DashboardFragment.kt	(revision 116e81d79c5e65da39593c1a1ddffc793841b275)
++++ b/app/src/main/java/id/finale/countrivia/ui/dashboard/DashboardFragment.kt	(date 1702563776114)
+@@ -7,14 +7,12 @@
+ import androidx.fragment.app.Fragment
+ import androidx.lifecycle.ViewModelProvider
+ import dagger.hilt.android.AndroidEntryPoint
+-import id.finale.countrivia.data.user.UserDao
+ import id.finale.countrivia.databinding.FragmentDashboardBinding
+ 
+ @AndroidEntryPoint
+ class DashboardFragment : Fragment() {
+ 
+     private var _binding: FragmentDashboardBinding? = null
+-    lateinit var userDao: UserDao
+ 
+     private val binding get() = _binding!!
+     override fun onCreateView(
+@@ -23,7 +21,7 @@
+         savedInstanceState: Bundle?
+     ): View {
+         val dashboardViewModel =
+-            ViewModelProvider(this).get(DashboardViewModel::class.java)
++            ViewModelProvider(this)[DashboardViewModel::class.java]
+ 
+         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+         val root: View = binding.root
+@@ -37,5 +35,6 @@
+ 
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
++
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/id/finale/countrivia/ui/theme/Theme.kt
+===================================================================
+diff --git a/app/src/main/java/id/finale/countrivia/ui/theme/Theme.kt b/app/src/main/java/id/finale/countrivia/ui/theme/Theme.kt
+deleted file mode 100644
+--- a/app/src/main/java/id/finale/countrivia/ui/theme/Theme.kt	(revision 116e81d79c5e65da39593c1a1ddffc793841b275)
++++ /dev/null	(revision 116e81d79c5e65da39593c1a1ddffc793841b275)
+@@ -1,69 +0,0 @@
+-package id.finale.countrivia.ui.theme
+-
+-import android.app.Activity
+-import android.os.Build
+-import androidx.compose.foundation.isSystemInDarkTheme
+-import androidx.compose.material3.MaterialTheme
+-import androidx.compose.material3.darkColorScheme
+-import androidx.compose.material3.dynamicDarkColorScheme
+-import androidx.compose.material3.dynamicLightColorScheme
+-import androidx.compose.material3.lightColorScheme
+-import androidx.compose.runtime.Composable
+-import androidx.compose.runtime.SideEffect
+-import androidx.compose.ui.graphics.toArgb
+-import androidx.compose.ui.platform.LocalContext
+-import androidx.compose.ui.platform.LocalView
+-import androidx.core.view.WindowCompat
+-
+-private val DarkColorScheme = darkColorScheme(
+-    primary = Purple80,
+-    secondary = PurpleGrey80,
+-    tertiary = Pink80
+-)
+-
+-private val LightColorScheme = lightColorScheme(
+-    primary = Purple40,
+-    secondary = PurpleGrey40,
+-    tertiary = Pink40
+-
+-    /* Other default colors to override
+-    background = Color(0xFFFFFBFE),
+-    surface = Color(0xFFFFFBFE),
+-    onPrimary = Color.White,
+-    onSecondary = Color.White,
+-    onTertiary = Color.White,
+-    onBackground = Color(0xFF1C1B1F),
+-    onSurface = Color(0xFF1C1B1F),
+-    */
+-)
+-
+-@Composable
+-fun CountriviaTheme(
+-    darkTheme: Boolean = isSystemInDarkTheme(),
+-    // Dynamic color is available on Android 12+
+-    dynamicColor: Boolean = true,
+-    content: @Composable () -> Unit
+-) {
+-    val colorScheme = when {
+-      dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+-        val context = LocalContext.current
+-        if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+-      }
+-      darkTheme -> DarkColorScheme
+-      else -> LightColorScheme
+-    }
+-    val view = LocalView.current
+-    if (!view.isInEditMode) {
+-      SideEffect {
+-        val window = (view.context as Activity).window
+-        window.statusBarColor = colorScheme.primary.toArgb()
+-        WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+-      }
+-    }
+-
+-    MaterialTheme(
+-      colorScheme = colorScheme,
+-      typography = Typography,
+-      content = content
+-    )
+-}
+\ No newline at end of file
+Index: app/src/main/java/id/finale/countrivia/ui/theme/Color.kt
+===================================================================
+diff --git a/app/src/main/java/id/finale/countrivia/ui/theme/Color.kt b/app/src/main/java/id/finale/countrivia/ui/theme/Color.kt
+deleted file mode 100644
+--- a/app/src/main/java/id/finale/countrivia/ui/theme/Color.kt	(revision 116e81d79c5e65da39593c1a1ddffc793841b275)
++++ /dev/null	(revision 116e81d79c5e65da39593c1a1ddffc793841b275)
+@@ -1,11 +0,0 @@
+-package id.finale.countrivia.ui.theme
+-
+-import androidx.compose.ui.graphics.Color
+-
+-val Purple80 = Color(0xFFD0BCFF)
+-val PurpleGrey80 = Color(0xFFCCC2DC)
+-val Pink80 = Color(0xFFEFB8C8)
+-
+-val Purple40 = Color(0xFF6650a4)
+-val PurpleGrey40 = Color(0xFF625b71)
+-val Pink40 = Color(0xFF7D5260)
+\ No newline at end of file
+Index: app/src/main/java/id/finale/countrivia/ui/theme/Type.kt
+===================================================================
+diff --git a/app/src/main/java/id/finale/countrivia/ui/theme/Type.kt b/app/src/main/java/id/finale/countrivia/ui/theme/Type.kt
+deleted file mode 100644
+--- a/app/src/main/java/id/finale/countrivia/ui/theme/Type.kt	(revision 116e81d79c5e65da39593c1a1ddffc793841b275)
++++ /dev/null	(revision 116e81d79c5e65da39593c1a1ddffc793841b275)
+@@ -1,34 +0,0 @@
+-package id.finale.countrivia.ui.theme
+-
+-import androidx.compose.material3.Typography
+-import androidx.compose.ui.text.TextStyle
+-import androidx.compose.ui.text.font.FontFamily
+-import androidx.compose.ui.text.font.FontWeight
+-import androidx.compose.ui.unit.sp
+-
+-// Set of Material typography styles to start with
+-val Typography = Typography(
+-    bodyLarge = TextStyle(
+-        fontFamily = FontFamily.Default,
+-        fontWeight = FontWeight.Normal,
+-        fontSize = 16.sp,
+-        lineHeight = 24.sp,
+-        letterSpacing = 0.5.sp
+-    )
+-    /* Other default text styles to override
+-    titleLarge = TextStyle(
+-        fontFamily = FontFamily.Default,
+-        fontWeight = FontWeight.Normal,
+-        fontSize = 22.sp,
+-        lineHeight = 28.sp,
+-        letterSpacing = 0.sp
+-    ),
+-    labelSmall = TextStyle(
+-        fontFamily = FontFamily.Default,
+-        fontWeight = FontWeight.Medium,
+-        fontSize = 11.sp,
+-        lineHeight = 16.sp,
+-        letterSpacing = 0.5.sp
+-    )
+-    */
+-)
+\ No newline at end of file
+Index: app/src/main/java/id/finale/countrivia/activity/RegisterActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package id.finale.countrivia.activity\r\n\r\nimport android.content.Intent\r\nimport android.os.Bundle\r\nimport android.util.Patterns\r\nimport android.widget.Toast\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport id.finale.countrivia.MainActivity\r\nimport id.finale.countrivia.MainApplication\r\nimport id.finale.countrivia.data.user.User\r\nimport id.finale.countrivia.data.user.UserDao\r\nimport id.finale.countrivia.databinding.ActivityRegisterBinding\r\n\r\n@AndroidEntryPoint\r\nclass RegisterActivity : AppCompatActivity(){\r\n    private lateinit var userDao: UserDao\r\n    private lateinit var binding: ActivityRegisterBinding\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n\r\n        binding = ActivityRegisterBinding.inflate(layoutInflater)\r\n        userDao = (application as MainApplication).database.userDao()\r\n\r\n\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(binding.root)\r\n\r\n        binding.tvToLogin.setOnClickListener {\r\n            val intent = Intent(this, LoginActivity::class.java)\r\n            startActivity(intent)\r\n        }\r\n\r\n        binding.btnSignup.setOnClickListener {\r\n            val email = binding.edtEmailSignup.text.toString()\r\n            val username = binding.edtUsernameSignup.text.toString()\r\n            val nim = binding.edtNimSignup.text.toString()\r\n            val password = binding.edtPasswordSignup.text.toString()\r\n\r\n\r\n            if (username.isEmpty()){\r\n                binding.edtEmailSignup.requestFocus()\r\n                binding.edtUsernameSignup.error = \"Username harus diisi!\"\r\n                binding.edtNimSignup.requestFocus()\r\n                binding.edtPasswordSignup.requestFocus()\r\n                return@setOnClickListener\r\n            }\r\n            if (email.isEmpty()){\r\n                binding.edtEmailSignup.error = \"Email harus diisi!\"\r\n                binding.edtUsernameSignup.requestFocus()\r\n                binding.edtNimSignup.requestFocus()\r\n                binding.edtPasswordSignup.requestFocus()\r\n                return@setOnClickListener\r\n            }\r\n            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){\r\n                binding.edtEmailSignup.requestFocus()\r\n                binding.edtUsernameSignup.error = \"Berikan Email yang Valid!\"\r\n                binding.edtNimSignup.requestFocus()\r\n                binding.edtPasswordSignup.requestFocus()\r\n                return@setOnClickListener\r\n            }\r\n            if (password.isEmpty()){\r\n                binding.edtEmailSignup.requestFocus()\r\n                binding.edtUsernameSignup.requestFocus()\r\n                binding.edtNimSignup.requestFocus()\r\n                binding.edtPasswordSignup.error = \"Password harus diisi!\"\r\n                return@setOnClickListener\r\n            }\r\n            if (password.length < 6){\r\n                binding.edtEmailSignup.requestFocus()\r\n                binding.edtUsernameSignup.requestFocus()\r\n                binding.edtNimSignup.requestFocus()\r\n                binding.edtPasswordSignup.error = \"Password harus lebih dari 6 Karakter!\"\r\n                return@setOnClickListener\r\n            }\r\n\r\n            registerUser(email, username, nim, password)\r\n        }\r\n    }\r\n\r\n    private fun registerUser(\r\n        email: String,\r\n        username: String,\r\n        nim: String,\r\n        password: String) {\r\n        val existingUser = userDao.getUserByEmail(email)\r\n        if(existingUser == null){\r\n            val newUser = User(\r\n                email = email,\r\n                userName = username,\r\n                nim = nim,\r\n                password = password\r\n            )\r\n            userDao.addUser(newUser)\r\n            Toast.makeText(this, \"Registrasi Sukses!\", Toast.LENGTH_LONG).show()\r\n            val intent = Intent(this, MainActivity::class.java)\r\n            startActivity(intent)\r\n        } else{\r\n            Toast.makeText(this, \"Email telah terpakai\", Toast.LENGTH_LONG).show()\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/id/finale/countrivia/activity/RegisterActivity.kt b/app/src/main/java/id/finale/countrivia/activity/RegisterActivity.kt
+--- a/app/src/main/java/id/finale/countrivia/activity/RegisterActivity.kt	(revision 116e81d79c5e65da39593c1a1ddffc793841b275)
++++ b/app/src/main/java/id/finale/countrivia/activity/RegisterActivity.kt	(date 1702560324167)
+@@ -89,7 +89,8 @@
+                 email = email,
+                 userName = username,
+                 nim = nim,
+-                password = password
++                password = password,
++                isActive = true
+             )
+             userDao.addUser(newUser)
+             Toast.makeText(this, "Registrasi Sukses!", Toast.LENGTH_LONG).show()
+Index: app/src/main/java/id/finale/countrivia/activity/LoginActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package id.finale.countrivia.activity\r\n\r\nimport android.content.Intent\r\nimport android.os.Bundle\r\nimport android.util.Patterns\r\nimport android.widget.Toast\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport id.finale.countrivia.MainActivity\r\nimport id.finale.countrivia.MainApplication\r\nimport id.finale.countrivia.data.user.UserDao\r\nimport id.finale.countrivia.databinding.ActivityLoginBinding\r\n\r\n@AndroidEntryPoint\r\nclass LoginActivity: AppCompatActivity() {\r\n\r\n    private lateinit var binding: ActivityLoginBinding\r\n    private lateinit var userDao: UserDao\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n\r\n        binding = ActivityLoginBinding.inflate(layoutInflater)\r\n        userDao = (application as MainApplication).database.userDao()\r\n\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(binding.root)\r\n\r\n        binding.loginToRegis.setOnClickListener {\r\n            val intent = Intent(this, RegisterActivity::class.java)\r\n            startActivity(intent)\r\n        }\r\n\r\n        binding.btnLogin.setOnClickListener {\r\n            val email = binding.edtEmailLogin.text.toString()\r\n            val password: String = binding.edtPasswordLogin.text.toString()\r\n\r\n            if (email.isEmpty()){\r\n                binding.edtEmailLogin.error = \"Email Harus Diisi\"\r\n                binding.edtPasswordLogin.requestFocus()\r\n                return@setOnClickListener\r\n            }\r\n            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){\r\n                binding.edtEmailLogin.error = \"Email Tidak Valid\"\r\n                binding.edtPasswordLogin.requestFocus()\r\n                return@setOnClickListener\r\n            }\r\n            if (password.isEmpty()){\r\n                binding.edtEmailLogin.requestFocus()\r\n                binding.edtPasswordLogin.error = \"Password Harus Diisi\"\r\n                return@setOnClickListener\r\n            }\r\n\r\n            loginUser(email, password)\r\n        }\r\n\r\n    }\r\n\r\n    private fun loginUser(email: String, password: String){\r\n        val user = userDao.readLoginData(email, password)\r\n        if(user == null){\r\n            Toast.makeText(this, \"Email atau Password Salah!\", Toast.LENGTH_LONG).show()\r\n        } else{\r\n            Toast.makeText(this, \"Login Berhasil!\", Toast.LENGTH_LONG).show()\r\n            val intent = Intent(this, MainActivity::class.java)\r\n            startActivity(intent)\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/id/finale/countrivia/activity/LoginActivity.kt b/app/src/main/java/id/finale/countrivia/activity/LoginActivity.kt
+--- a/app/src/main/java/id/finale/countrivia/activity/LoginActivity.kt	(revision 116e81d79c5e65da39593c1a1ddffc793841b275)
++++ b/app/src/main/java/id/finale/countrivia/activity/LoginActivity.kt	(date 1702560324161)
+@@ -52,7 +52,6 @@
+ 
+             loginUser(email, password)
+         }
+-
+     }
+ 
+     private fun loginUser(email: String, password: String){
+@@ -60,6 +59,7 @@
+         if(user == null){
+             Toast.makeText(this, "Email atau Password Salah!", Toast.LENGTH_LONG).show()
+         } else{
++            user.isActive = true
+             Toast.makeText(this, "Login Berhasil!", Toast.LENGTH_LONG).show()
+             val intent = Intent(this, MainActivity::class.java)
+             startActivity(intent)
+Index: app/src/main/java/id/finale/countrivia/data/user/UserDatabase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package id.finale.countrivia.data.user\r\n\r\nimport android.content.Context\r\nimport androidx.room.Database\r\nimport androidx.room.Room\r\nimport androidx.room.RoomDatabase\r\n\r\n@Database(entities = [User::class], version = 1, exportSchema = false)\r\nabstract class UserDatabase: RoomDatabase() {\r\n\r\n    abstract fun userDao(): UserDao\r\n\r\n    companion object{\r\n        @Volatile\r\n        private var INSTANCE: UserDatabase? = null\r\n\r\n        fun getDatabase(context: Context): UserDatabase{\r\n            val tempInstance = INSTANCE\r\n            if(tempInstance != null){\r\n                return tempInstance\r\n            }\r\n            synchronized(this){\r\n                val instance = Room.databaseBuilder(\r\n                        context.applicationContext,\r\n                        UserDatabase::class.java,\r\n                        \"userDatabase\"\r\n                ).build()\r\n                INSTANCE = instance\r\n                return instance\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/id/finale/countrivia/data/user/UserDatabase.kt b/app/src/main/java/id/finale/countrivia/data/user/UserDatabase.kt
+--- a/app/src/main/java/id/finale/countrivia/data/user/UserDatabase.kt	(revision 116e81d79c5e65da39593c1a1ddffc793841b275)
++++ b/app/src/main/java/id/finale/countrivia/data/user/UserDatabase.kt	(date 1702560641898)
+@@ -5,7 +5,7 @@
+ import androidx.room.Room
+ import androidx.room.RoomDatabase
+ 
+-@Database(entities = [User::class], version = 1, exportSchema = false)
++@Database(entities = [User::class], version = 2, exportSchema = false)
+ abstract class UserDatabase: RoomDatabase() {
+ 
+     abstract fun userDao(): UserDao
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_17\" default=\"true\" project-jdk-name=\"17\" project-jdk-type=\"JavaSDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 116e81d79c5e65da39593c1a1ddffc793841b275)
++++ b/.idea/misc.xml	(date 1702903176223)
+@@ -1,4 +1,3 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
+   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK" />
