@@ -22,12 +22,12 @@
 8. Dagger-Hilt Implementation
 
 ## Snapshots
-1. <img src="snapshot/login-pam.jpeg" alt="Login" width="200"/>
-2. <img src="snapshot/register-pam.jpeg" alt="Register" width="200"/>
-3. <img src="snapshot/detail-pam.jpeg" alt="Detail" width="200"/>
-4. <img src="snapshot/home-pam.jpeg" alt="Home" width="200"/>
-5. <img src="snapshot/onboarding-pam.jpeg" alt="Onboarding" width="200"/>
-6. <img src="snapshot/profile-pam.jpeg" alt="Profile" width="200"/>
+1. **Login:** <img src="snapshot/login-pam.jpeg" alt="Login" width="200"/>
+2. **Register:** <img src="snapshot/register-pam.jpeg" alt="Register" width="200"/>
+3. **Detail:** <img src="snapshot/detail-pam.jpeg" alt="Detail" width="200"/>
+4. **Home:** <img src="snapshot/home-pam.jpeg" alt="Home" width="200"/>
+5. **Onboarding:** <img src="snapshot/onboarding-pam.jpeg" alt="Onboarding" width="200"/>
+6. **Profile:** <img src="snapshot/profile-pam.jpeg" alt="Profile" width="200"/>
 
 ## Dependencies Used
 - Preference DataStore
