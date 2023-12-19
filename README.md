@@ -1,4 +1,4 @@
-# Countrivia
+    # Countrivia
 
 ![appLogo](app/src/main/res/drawable/logo.png)
 
@@ -22,7 +22,12 @@
 8. Dagger-Hilt Implementation
 
 ## Snapshots
-Coming Soon..
+1. ![Login](snapshot/login-pam.jpeg)
+2. ![Register](snapshot/register-pam.jpeg)
+3. ![Detail](snapshot/detail-pam.jpeg)
+4. ![Home](snapshot/home-pam.jpeg)
+5. ![Onboarding](snapshot/onboarding-pam.jpeg)
+6. ![Profile](snapshot/profile-pam.jpeg)
 
 ## Dependencies Used
 - Preference DataStore
