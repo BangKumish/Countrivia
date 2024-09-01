@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.viewpager2.widget.ViewPager2
-import id.finale.countrivia.di.data.local.pref.DataStoreManager
+import id.finale.countrivia.data.local.pref.DataStoreManager
 import id.finale.countrivia.databinding.OnboardingViewBinding
 import id.finale.countrivia.ui.activity.onBoarding.OnBoardingPagerAdapter
 import id.finale.countrivia.ui.activity.onBoarding.entity.OnBoardingPage

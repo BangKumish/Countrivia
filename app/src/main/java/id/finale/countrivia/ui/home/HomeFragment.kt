@@ -12,8 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import id.finale.countrivia.di.data.adapter.CountryAdapter
-import id.finale.countrivia.di.data.remote.Resource
+import id.finale.countrivia.data.adapter.CountryAdapter
+import id.finale.countrivia.data.remote.Resource
 import id.finale.countrivia.databinding.FragmentHomeBinding
 import id.finale.countrivia.di.extensions.handleApiError
 import id.finale.countrivia.di.extensions.obtainViewModel

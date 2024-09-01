@@ -4,8 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import id.finale.countrivia.di.data.remote.CountryClient
-import id.finale.countrivia.di.retrofit.CountryApi
+import id.finale.countrivia.data.remote.CountryClient
+import id.finale.countrivia.data.remote.retrofit.CountryApi
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -16,7 +16,7 @@ object AppModule {
     @Provides
     fun provideCountryAPI(
         countryClient: CountryClient,
-    ): CountryApi{
+    ): CountryApi {
         return countryClient.buildApi(CountryApi::class.java)
     }
 

@@ -7,8 +7,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import id.finale.countrivia.databinding.ActivityLoginBinding
-import id.finale.countrivia.di.data.user.UserDao
-import id.finale.countrivia.di.data.user.UserDatabase
+import id.finale.countrivia.data.local.model.user.UserDao
+import id.finale.countrivia.data.local.model.user.UserDatabase
 import id.finale.countrivia.ui.MainActivity
 
 @AndroidEntryPoint

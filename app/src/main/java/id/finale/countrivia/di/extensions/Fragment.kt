@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.google.android.material.snackbar.Snackbar
 import id.finale.countrivia.R
-import id.finale.countrivia.di.data.remote.Resource
+import id.finale.countrivia.data.remote.Resource
 
 fun<T: ViewModel> obtainViewModel(
     owner: ViewModelStoreOwner,

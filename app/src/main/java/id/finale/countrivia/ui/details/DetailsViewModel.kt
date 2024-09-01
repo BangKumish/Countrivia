@@ -3,7 +3,7 @@ package id.finale.countrivia.ui.details
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.finale.countrivia.di.data.entities.CountryModel
+import id.finale.countrivia.data.local.model.entities.CountryModel
 import id.finale.countrivia.di.extensions.prettyCount
 import javax.inject.Inject
 

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import id.finale.countrivia.databinding.FragmentDashboardBinding
-import id.finale.countrivia.di.data.user.UserDao
+import id.finale.countrivia.data.local.model.user.UserDao
 import id.finale.countrivia.di.extensions.obtainViewModel
 import id.finale.countrivia.ui.activity.EditProfile
 import id.finale.countrivia.ui.activity.LoginActivity

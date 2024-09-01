@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="id.finale.countrivia.di.data.entities.CountryModel"/>
+        <import type="id.finale.countrivia.data.local.model.entities.CountryModel"/>
         <variable
             name="countryModel"
-            type="id.finale.countrivia.di.data.entities.CountryModel" />
+            type="id.finale.countrivia.data.local.model.entities.CountryModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

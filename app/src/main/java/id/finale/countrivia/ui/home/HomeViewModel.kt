@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.finale.countrivia.di.data.entities.CountryModel
-import id.finale.countrivia.di.data.remote.Resource
-import id.finale.countrivia.di.data.repository.CountryRepo
+import id.finale.countrivia.data.local.model.entities.CountryModel
+import id.finale.countrivia.data.remote.Resource
+import id.finale.countrivia.data.repository.CountryRepo
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
